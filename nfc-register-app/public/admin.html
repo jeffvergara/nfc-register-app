@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Eid Al Etihad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wide-page" data-title="adminTitle">
+<header class="hero">
+  <div class="ribbon"><i class="r"></i><i class="stripes"></i></div>
+  <div class="hero-inner" style="padding-bottom:100px">
+    <div class="hero-top">
+      <span class="date-chip" data-i18n="heroDate">2 DECEMBER · UAE NATIONAL DAY</span>
+      <button type="button" class="lang" id="langBtn">العربية</button>
+    </div>
+    <p class="hero-ar" lang="ar" dir="rtl" style="font-size:clamp(2.2rem,8vw,3.4rem)">عيد الاتحاد</p>
+    <div class="orn" aria-hidden="true">✦ ✦ ✦</div>
+  </div>
+  <svg class="skyline" viewBox="0 0 1200 110" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <rect x="0" y="96" width="1200" height="14"/>
+    <rect x="40" y="62" width="34" height="40"/><rect x="80" y="48" width="26" height="54"/><rect x="112" y="70" width="40" height="32"/>
+    <g transform="translate(190,0)"><path d="M0 100V62A34 34 0 0 1 68 62V100Z"/>
+      <rect x="-14" y="30" width="8" height="70"/><path d="M-14 30L-10 16L-6 30Z"/>
+      <rect x="74" y="30" width="8" height="70"/><path d="M74 30L78 16L82 30Z"/><rect x="32" y="14" width="4" height="12"/></g>
+    <rect x="300" y="56" width="30" height="46"/><rect x="334" y="40" width="22" height="62"/>
+    <rect x="470" y="50" width="36" height="52"/><rect x="510" y="68" width="28" height="34"/>
+    <polygon points="600,6 604,40 609,70 614,102 586,102 591,70 596,40"/>
+    <rect x="652" y="46" width="30" height="56"/><rect x="686" y="62" width="36" height="40"/>
+    <g transform="translate(790,0)"><path d="M0 100V68A28 28 0 0 1 56 68V100Z"/>
+      <rect x="-12" y="38" width="7" height="62"/><path d="M-12 38L-8.5 26L-5 38Z"/>
+      <rect x="61" y="38" width="7" height="62"/><path d="M61 38L64.5 26L68 38Z"/></g>
+    <rect x="890" y="52" width="30" height="50"/><rect x="924" y="66" width="26" height="36"/>
+    <g transform="translate(1010,100)"><path d="M0 0Q8 -26 3 -56" fill="none" stroke-width="5" style="stroke:var(--sand)"/>
+      <path d="M3 -56q-30 -4 -42 16M3 -56q30 -4 42 16M3 -56q-20 -22 -36 -16M3 -56q20 -22 36 -16M3 -56q0 -20 0 -30" fill="none" stroke-width="5" stroke-linecap="round" style="stroke:var(--sand)"/></g>
+    <g transform="translate(1100,100)"><path d="M0 0Q-6 -22 -2 -46" fill="none" stroke-width="5" style="stroke:var(--sand)"/>
+      <path d="M-2 -46q-26 -4 -36 14M-2 -46q26 -4 36 14M-2 -46q-18 -20 -32 -14M-2 -46q18 -20 32 -14M-2 -46q0 -18 0 -26" fill="none" stroke-width="5" stroke-linecap="round" style="stroke:var(--sand)"/></g>
+  </svg>
+</header>
+
+<main class="wrap wide">
+  <section id="loginView" hidden style="max-width:420px;margin:0 auto">
+    <form id="loginForm" class="card">
+      <h1 class="page-title" data-i18n="adminLogin">Admin login</h1>
+      <label for="u" data-i18n="username">Username</label>
+      <input type="text" id="u" autocomplete="username" required data-kb="email" inputmode="none" autocapitalize="off">
+      <label for="p" data-i18n="pwdLabel">Password</label>
+      <input type="password" id="p" autocomplete="current-password" required data-kb="password" inputmode="none">
+      <div class="btns"><button type="submit" data-i18n="signIn">Sign in</button></div>
+      <div id="loginMsg" role="status" aria-live="polite"></div>
+    </form>
+    <p class="hint"><a href="index.html" data-i18n="backReg">Back to registration</a></p>
+  </section>
+
+  <section id="dashView" hidden>
+    <div class="top">
+      <h1 class="page-title" data-i18n="dashboard">Admin dashboard</h1>
+      <div class="btns" style="margin:0">
+        <a href="/api/admin/export.csv"><button type="button" class="ghost" data-i18n="exportCsv">Export CSV</button></a>
+        <button type="button" class="ghost" id="refresh" data-i18n="refresh">Refresh</button>
+        <button type="button" id="logout" data-i18n="logout">Log out</button>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="card">
+      <h2 data-i18n="usersTitle">Registered users</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr>
+            <th data-i18n="thPhoto">Photo</th><th data-i18n="thName">Name</th><th data-i18n="thEmail">Email</th>
+            <th data-i18n="thPhone">Phone</th><th data-i18n="thUid">NFC UID</th><th data-i18n="thDate">Registered</th><th></th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="hint" id="empty" hidden data-i18n="noUsers">No users registered yet.</p>
+    </div>
+  </section>
+</main>
+<footer class="foot">
+  <span class="stripe"></span>
+  <span class="ar" lang="ar" dir="rtl" data-i18n="footAr">الإمارات العربية المتحدة</span>
+</footer>
+<script src="i18n.js"></script>
+<script src="keyboard.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let loggedIn = false;
+const api = async (url, opts) => {
+  const r = await fetch(url, opts);
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && url !== '/api/admin/login') { show(false); throw new Error('auth'); }
+  if (!r.ok) throw new Error(j.error || 'Request failed');
+  return j;
+};
+function show(v) { loggedIn = v; $('loginView').hidden = v; $('dashView').hidden = !v; }
+
+function el(tag, props = {}, ...kids) {
+  const n = Object.assign(document.createElement(tag), props);
+  kids.forEach(k => n.append(k));
+  return n;
+}
+
+async function load() {
+  const s = await api('/api/admin/stats');
+  const tiles = [['stTotal', s.totalUsers], ['stToday', s.today], ['st7', s.last7Days], ['stPhoto', s.withPhoto], ['stNfc', s.withNfc]];
+  $('stats').replaceChildren(...tiles.map(([k, v]) => el('div', { className: 'stat' }, el('b', { textContent: v }), el('span', { textContent: t(k) }))));
+  const users = await api('/api/admin/users');
+  $('empty').hidden = users.length > 0;
+  $('rows').replaceChildren(...users.map(u => {
+    const del = el('button', { className: 'danger', textContent: t('del') });
+    del.onclick = async () => {
+      if (!confirm(t('delConfirm', u.full_name))) return;
+      await api('/api/admin/users/' + u.id, { method: 'DELETE' }); load();
+    };
+    const photo = u.photo_file ? el('img', { className: 'avatar', src: '/photos/' + u.photo_file, alt: t('photoOf', u.full_name) }) : el('span', { className: 'avatar' });
+    return el('tr', {},
+      el('td', {}, photo),
+      el('td', { textContent: u.full_name }),
+      el('td', { textContent: u.email, dir: 'ltr' }),
+      el('td', { textContent: u.phone || '—', dir: 'ltr' }),
+      el('td', { className: 'nfc-uid', textContent: u.nfc_uid || '—' }),
+      el('td', { textContent: u.created_at + ' UTC', dir: 'ltr' }),
+      el('td', {}, del));
+  }));
+}
+onLang(() => { if (loggedIn) load().catch(() => {}); });
+
+$('loginForm').onsubmit = async e => {
+  e.preventDefault();
+  $('loginMsg').replaceChildren();
+  try {
+    await api('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: $('u').value, password: $('p').value }) });
+    $('p').value = ''; show(true); load();
+  } catch (err) { $('loginMsg').append(el('div', { className: 'msg err', textContent: err.message })); }
+};
+$('logout').onclick = async () => { await api('/api/admin/logout', { method: 'POST' }).catch(() => {}); show(false); };
+$('refresh').onclick = () => load().catch(() => {});
+
+(async () => {
+  try { await api('/api/admin/me'); show(true); load(); } catch { show(false); }
+})();
+</script>
+</body>
+</html>

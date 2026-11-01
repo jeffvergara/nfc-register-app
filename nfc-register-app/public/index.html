@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eid Al Etihad Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-title="pageTitle">
+<header class="hero">
+  <div class="ribbon"><i class="r"></i><i class="stripes"></i></div>
+  <div class="hero-inner">
+    <div class="hero-top">
+      <span class="date-chip" data-i18n="heroDate">2 DECEMBER · UAE NATIONAL DAY</span>
+      <button type="button" class="lang" id="langBtn">العربية</button>
+    </div>
+    <h1 class="hero-ar" lang="ar" dir="rtl">عيد الاتحاد</h1>
+    <p class="hero-sub" data-i18n="heroSub">Eid Al Etihad · UAE National Day</p>
+    <div class="orn" aria-hidden="true">✦ ✦ ✦</div>
+    <p class="hero-greet" data-i18n="heroGreet">Happy National Day! The 55th celebration</p>
+  </div>
+  <!-- Skyline: towers, a mosque with dome and minarets, and date palms -->
+  <svg class="skyline" viewBox="0 0 1200 110" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <rect x="0" y="96" width="1200" height="14"/>
+    <rect x="40" y="62" width="34" height="40"/><rect x="80" y="48" width="26" height="54"/>
+    <rect x="112" y="70" width="40" height="32"/>
+    <g transform="translate(190,0)"><path d="M0 100V62A34 34 0 0 1 68 62V100Z"/>
+      <rect x="-14" y="30" width="8" height="70"/><path d="M-14 30L-10 16L-6 30Z"/>
+      <rect x="74" y="30" width="8" height="70"/><path d="M74 30L78 16L82 30Z"/>
+      <rect x="32" y="14" width="4" height="12"/></g>
+    <rect x="300" y="56" width="30" height="46"/><rect x="334" y="40" width="22" height="62"/>
+    <rect x="470" y="50" width="36" height="52"/><rect x="510" y="68" width="28" height="34"/>
+    <polygon points="600,6 604,40 609,70 614,102 586,102 591,70 596,40"/>
+    <rect x="652" y="46" width="30" height="56"/><rect x="686" y="62" width="36" height="40"/>
+    <g transform="translate(790,0)"><path d="M0 100V68A28 28 0 0 1 56 68V100Z"/>
+      <rect x="-12" y="38" width="7" height="62"/><path d="M-12 38L-8.5 26L-5 38Z"/>
+      <rect x="61" y="38" width="7" height="62"/><path d="M61 38L64.5 26L68 38Z"/></g>
+    <rect x="890" y="52" width="30" height="50"/><rect x="924" y="66" width="26" height="36"/>
+    <g transform="translate(1010,100)" stroke="#f7f3ea" stroke-width="0" >
+      <path d="M0 0Q8 -26 3 -56" fill="none" stroke-width="5" style="stroke:var(--sand)"/>
+      <path d="M3 -56q-30 -4 -42 16M3 -56q30 -4 42 16M3 -56q-20 -22 -36 -16M3 -56q20 -22 36 -16M3 -56q0 -20 0 -30" fill="none" stroke-width="5" stroke-linecap="round" style="stroke:var(--sand)"/></g>
+    <g transform="translate(1100,100)">
+      <path d="M0 0Q-6 -22 -2 -46" fill="none" stroke-width="5" style="stroke:var(--sand)"/>
+      <path d="M-2 -46q-26 -4 -36 14M-2 -46q26 -4 36 14M-2 -46q-18 -20 -32 -14M-2 -46q18 -20 32 -14M-2 -46q0 -18 0 -26" fill="none" stroke-width="5" stroke-linecap="round" style="stroke:var(--sand)"/></g>
+  </svg>
+</header>
+
+<main class="wrap">
+  <form id="form" class="card" autocomplete="off" novalidate>
+    <h1 class="page-title" data-i18n="title">Create your account</h1>
+    <p class="sub" data-i18n="sub">Fill in your details, take a photo and tap your NFC card.</p>
+
+    <h2 data-i18n="step1">1. Your details</h2>
+    <label for="fullName" data-i18n="fullName">Full name</label>
+    <input type="text" id="fullName" required data-kb="name" inputmode="none" autocapitalize="off">
+    <div class="row">
+      <div><label for="email" data-i18n="email">Email</label><input type="text" id="email" required data-kb="email" inputmode="none" autocapitalize="off" autocorrect="off" spellcheck="false" dir="ltr"></div>
+      <div><label for="phone" data-i18n="phone">Phone (optional)</label><input type="tel" id="phone" data-kb="phone" inputmode="none"></div>
+    </div>
+    <label for="password" data-i18n="password">Password (min. 8 characters)</label>
+    <input type="password" id="password" minlength="8" required autocomplete="new-password" data-kb="password" inputmode="none">
+
+    <hr class="divider">
+    <h2 data-i18n="step2">2. Photo</h2>
+    <div class="cam" id="cam">
+      <span class="ph" id="camPh" data-i18n="camPh">Camera is off. Click “Start camera”.</span>
+      <video id="video" autoplay playsinline muted hidden></video>
+      <img id="preview" alt="" hidden>
+    </div>
+    <div class="btns">
+      <button type="button" id="startCam" data-i18n="startCam">Start camera</button>
+      <button type="button" id="snap" class="ghost" disabled data-i18n="snap">Take photo</button>
+      <button type="button" id="retake" class="ghost" hidden data-i18n="retake">Retake</button>
+    </div>
+    <p class="hint" data-i18n="camHint">Your browser will ask permission to use the camera. Camera access needs https:// or http://localhost.</p>
+    <canvas id="canvas" hidden></canvas>
+
+    <hr class="divider">
+    <h2 data-i18n="step3">3. NFC card</h2>
+    <p><span data-i18n="cardUid">Card UID:</span> <span class="nfc-uid" id="uidShow">— not scanned —</span> <span class="pill" id="nfcState">reader not connected</span></p>
+    <div class="btns">
+      <button type="button" class="ghost" id="btnArduino" data-i18n="btnArduino">Connect Arduino reader (USB)</button>
+      <button type="button" class="ghost" id="btnSpring" data-i18n="btnSpring">Connect SpringCard reader (bridge)</button>
+      <button type="button" class="ghost" id="btnWebNfc" data-i18n="btnWebNfc">Use this phone's NFC</button>
+    </div>
+    <label for="uidManual" data-i18n="uidManualLabel">Or type / paste the UID (also works with readers in keyboard mode)</label>
+    <input type="text" id="uidManual" inputmode="none" placeholder="04A1B2C3D4E580" spellcheck="false">
+
+    <div class="btns" style="margin-top:26px">
+      <button type="submit" id="submit" class="big" data-i18n="register">Register</button>
+    </div>
+    <div id="msg" role="status" aria-live="polite"></div>
+  </form>
+  <p class="hint"><a href="admin.html" data-i18n="adminLink">Admin login</a></p>
+</main>
+<footer class="foot">
+  <span class="stripe"></span>
+  <span class="ar" lang="ar" dir="rtl" data-i18n="footAr">الإمارات العربية المتحدة</span>
+  <span data-i18n="footTxt">Made with love for the United Arab Emirates</span>
+</footer>
+<script src="i18n.js"></script>
+<script src="keyboard.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
